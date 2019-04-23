@@ -16,5 +16,5 @@
 
 OR
 
-* Run Docker - `docker-compose up`
+* Run Docker - `docker-compose build && docker-compose up`
 * Go to swagger page - `localhost:3000/documentation`
