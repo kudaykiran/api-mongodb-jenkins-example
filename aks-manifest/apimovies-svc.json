@@ -1,0 +1,24 @@
+{
+    "kind": "Service",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "api-movies",
+        "labels": {
+            "version": "v1",
+            "app": "api-movies"
+
+        }
+    },
+    "spec": {
+        "selector": {
+            "app": "api-movies"
+
+        },
+        "type": "LoadBalancer",
+        "ports": [{
+            "protocol": "TCP",
+            "port": 4000,
+            "targetPort": 4000
+        }]
+    }
+}

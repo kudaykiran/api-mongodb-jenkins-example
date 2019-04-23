@@ -1,0 +1,81 @@
+{
+    "apiVersion": "extensions/v1beta1",
+    "kind": "Deployment",
+    "metadata": {
+        "name": "api-movies-deployment-ru",
+        "labels": {
+            "version": "v1",
+            "app": "api-movies"
+        }
+    },
+    "spec": {
+        "replicas": 2,
+        "strategy": {
+            "type": "RollingUpdate",
+            "rollingUpdate": {
+                "maxSurge": 10,
+                "maxUnavailable": 0
+            }
+        },
+        "minReadySeconds": 5,
+        "selector": {
+            "matchLabels": {
+                "version": "v1",
+                "app": "api-movies"
+            }
+        },
+        "template": {
+            "metadata": {
+                "labels": {
+                    "version": "v1",
+                    "app": "api-movies"
+                }
+            },
+            "spec": {
+                "containers": [
+                    {
+                        "name": "api-movies",
+                        "image": "mlongarai/api-movies",
+                        "readinessProbe": {
+                            "httpGet": {
+                                "path": "/movies",
+                                "port": 4000
+                            },
+                            "initialDelaySeconds": 15,
+                            "timeoutSeconds": 1
+                        },
+                        "livenessProbe": {
+                            "httpGet": {
+                                "path": "/movies",
+                                "port": 4000
+                            },
+                            "initialDelaySeconds": 15,
+                            "timeoutSeconds": 1
+                        },
+                        "resources": {
+                            "limits": {
+                                "cpu": "200m",
+                                "memory": "200Mi"
+                            }
+                        },
+                        "ports": [
+                            {
+                                "containerPort": 4000
+                            }
+                        ],
+                        "env": [
+                            {
+                                "name": "MONGO_URL",
+                                "value": "mongodb-svc"
+                            },
+                            {
+                                "name": "PORT",
+                                "value": "4000"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

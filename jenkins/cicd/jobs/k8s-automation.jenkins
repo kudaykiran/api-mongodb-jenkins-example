@@ -1,0 +1,28 @@
+#!/usr/bin/env groovy
+
+pipelineJob('k8s-automation') {
+
+      // Mark the code checkout 'stage'....
+        stage('Checkout the dockefile from GitLab') {
+            git branch: 'master', credentialsId: 'gitlab', url: 'https://gitlab.com/murilo.longarai/k8s-project-automation.git'
+        }
+        // Build and Deploy to ACR 'stage'...
+        stage('Build the Image and Push to Azure Container Registry')          {
+                app = docker.build('k8s-automation.azurecr.io/api-movies')
+                withDockerRegistry([credentialsId: 'acr-credentials', url: 'https://k8s-automation.azurecr.io']) {
+                app.push("${env.BUILD_NUMBER}")
+                app.push('latest')
+                }
+        }
+        stage('Build the Kubernetes YAML Files for New App') {
+            //<The code here will differ depending on the YAMLs used for the application>
+        }
+        stage('Delpoying the App on Azure Kubernetes Service') {
+            app = docker.image('k8s-automation.azurecr.io/api-movies:latest')
+            withDockerRegistry([credentialsId: 'acr-credentials', url: 'https://k8s-automation.azurecr.io']) {
+            app.pull()
+            sh "kubectl create -f ."
+            }
+        }
+
+}
