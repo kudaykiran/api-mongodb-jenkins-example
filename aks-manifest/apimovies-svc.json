@@ -2,7 +2,7 @@
     "kind": "Service",
     "apiVersion": "v1",
     "metadata": {
-        "name": "api-movies",
+        "name": "apimovies",
         "labels": {
             "version": "v1",
             "app": "api-movies"
