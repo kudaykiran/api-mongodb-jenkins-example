@@ -6,3 +6,6 @@ api-movies/.DS_Store
 api-movies/DS_Store
 jenkins/.DS_Store
 jenkins/DS_Store
+api-movies/node_modules/
+api-movies/lib/
+api-movies/package-lock.json
