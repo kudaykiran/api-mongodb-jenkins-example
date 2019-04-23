@@ -12,7 +12,7 @@
 * Install dependencies - `npm i`
 * Build typescript - `npm run build`
 * Run project - `npm start`
-* Go to swagger page - `localhost:3000/documentation` (need to up database seoarately)
+* Go to swagger page - `localhost:3000/documentation` (need to up database separately)
 
 OR
 
