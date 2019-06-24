@@ -22,7 +22,7 @@ server.connection({ port });
       register: HapiSwagger,
       options: {
         info: {
-          title: "Node.js with MongoDB Example - TCC",
+          title: "Node.js with MongoDB Example",
           version: "1.0"
         }
       }
